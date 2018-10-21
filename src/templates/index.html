@@ -1,0 +1,34 @@
+<!doctype html>
+<html>
+  <head>
+    {% extends "bootstrap/base.html" %}
+    {% block styles %}
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% endblock %}
+    {% block html_attribs %} lang="en" {% endblock %}
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{% block title %}{% endblock %} - API Service</title>
+    {% endblock %}
+  </head>
+  <body>
+    <div id="content">
+      {% block content %}
+        <h1>Camera Management Backend System</h1>
+        <div>
+          <section>
+            <h5>GET List</h5>
+            <ul>
+                <li><a href="{{ url_for('camera.getPhoto') }}">Get picture</a>
+            </ul>
+
+            <h5>POST List</h5>
+            <ul>
+                <li><a href="{{ url_for('camera.shootCamera') }}">Shoot Camera</a>
+            </ul>
+          </section>
+        </div>
+      {% endblock %}
+    </div>
+  </body>
+</html>
