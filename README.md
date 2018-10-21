@@ -28,6 +28,9 @@ rasp-vi-server is a very simple and small project for playing with Flask and Ope
 ```
 
 
-## Steps to tun it
+## Steps to run it [DEVELOPMENT]
 1. `export FLASK_ENV=development`
-2. `python run.py`
+2. Execute `python run.py` in a development environment.
+
+## Notes
+Still developing the service.
