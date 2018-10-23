@@ -1,7 +1,7 @@
 from flask import Flask, g #flask
 from .config import app_config #app config
 from .utils.util import render_template
-from .views.CameraHandling import camera_api as camera_blueprint #view
+from .views.camera import camera_api as camera_blueprint #view
 from flask_bootstrap import Bootstrap #bootstrap
 
 # Creating app
@@ -19,7 +19,7 @@ def create_app(env_name):
 
   # boostrap init
   Bootstrap(app)
-  
+
   # / url [home page]
   @app.route('/index')
   @app.route('/', methods=['GET'])

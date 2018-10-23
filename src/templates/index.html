@@ -19,12 +19,12 @@
           <section>
             <h5>GET List</h5>
             <ul>
-                <li><a href="{{ url_for('camera.getPhoto') }}">Get picture</a>
+                <li>Get picture [{{ url_for('camera.getPhoto', num_camera='num_cam') }}]</li>
             </ul>
 
             <h5>POST List</h5>
             <ul>
-                <li><a href="{{ url_for('camera.shootCamera') }}">Shoot Camera</a>
+                <li>Shoot Camera [{{ url_for('camera.shootCamera') }}]</li>
             </ul>
           </section>
         </div>
