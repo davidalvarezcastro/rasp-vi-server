@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 flask = "*"
+opencv-python = "*"
+flask-bootstrap = "*"
 
 [dev-packages]
 
