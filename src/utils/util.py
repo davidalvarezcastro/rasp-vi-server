@@ -4,7 +4,7 @@ import threading
 import time as t
 
 # Utilities / Helpers
-def setInterval(func, args, delay, time):
+def set_interval(func, args, delay, time):
   """Set interval with cancel process based on time
 
   Param arguments:
