@@ -2,7 +2,6 @@
 #/src/views/camera
 
 from flask import g, request, Blueprint
-
 from ..utils.util import custom_response, render_template, custom_response_file
 from ..modules.camera import handle_shoot_camera, handle_stop_camera, handle_get_photo_as_image
 
