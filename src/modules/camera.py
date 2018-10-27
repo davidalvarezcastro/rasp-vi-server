@@ -6,6 +6,7 @@ from ..settings import APP_PHOTOS
 # Globals
 CAMERA = None
 CAMERA_STOPPED = None #Variable to stop video capturing method
+CAMERA_TO_STOP = None
 
 def shoot_camera_by_id(id):
   """Take a photo for a specific camera and write it to {APP_PHOTOS}
@@ -14,9 +15,10 @@ def shoot_camera_by_id(id):
     id -- camera id
   Return: None
   """
-  global CAMERA, CAMERA_STOPPED
+  global CAMERA, CAMERA_STOPPED, CAMERA_TO_STOP
   try:
-    if(CAMERA_STOPPED):
+    if(CAMERA_STOPPED and (id == CAMERA_TO_STOP)):
+      CAMERA_TO_STOP = None
       raise Exception #Stop process
     CAMERA = None
     CAMERA = cv2.VideoCapture(id) #VideoCapture Management
@@ -24,8 +26,6 @@ def shoot_camera_by_id(id):
     return_value,image = CAMERA.read()
     cv2.imwrite(get_folder(APP_PHOTOS, 'test_{}.jpg'.format(id)),image)
   except Exception as e:
-    CAMERA.release()
-    CAMERA = None
     # Controlled exception
     raise Exception('OK', 'Process stopped!') if CAMERA_STOPPED else Exception(e)
 
@@ -42,6 +42,7 @@ def handle_shoot_camera(num_cam, loop = False, delay = None, time = None):
   """
   global CAMERA, CAMERA_STOPPED
   CAMERA_STOPPED = None
+  CAMERA_TO_STOP = None
 
   # Simple shoot / multiple shoots
   if(not loop):
@@ -53,19 +54,17 @@ def handle_shoot_camera(num_cam, loop = False, delay = None, time = None):
   CAMERA = None
   return True
 
-def handle_stop_camera():
+def handle_stop_camera(num_cam):
   """Handle camera shooting (multiples photos or just one)
 
   Param arguments:
-    None
+    num_cam -- camera id
   Return: None [this event will generate an exception inside handle_shoot_camera]
   """
-  global CAMERA_STOPPED
-  if(CAMERA and CAMERA.isOpened()):
-    CAMERA_STOPPED = True
-    return True
-  else:
-    return False
+  global CAMERA_STOPPED, CAMERA_TO_STOP
+
+  CAMERA_TO_STOP = int(num_cam)
+  CAMERA_STOPPED = True
 
 def handle_get_photo_as_image(num_cam):
   """Handle get latest photo

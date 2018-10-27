@@ -46,19 +46,20 @@ def shoot_camera():
   
   return custom_response({'message': msg}, code)
 
-@camera_api.route('/stop', methods=['POST'])
-def stop_shoot_camera():
+@camera_api.route('/stop/<num_camera>', methods=['POST'])
+def stop_shoot_camera(num_camera):
   """Close video file or capturing device
 
   Keyword arguments:
-    None
+    num_camera -- camera id
   Return: Response
   """
   msg = ''
   code = 200
 
   try:
-    msg = 'Capturing process stopped!' if handle_stop_camera() else 'No camera opened!'
+    handle_stop_camera(num_camera)
+    msg = 'Signal send to the process. Capturing process is being stopped!'
   except Exception as inst:
     msg = 'Something wrong has happened!' + str(inst)
     code = 500
