@@ -19,13 +19,14 @@
           <section>
             <h5>GET List</h5>
             <ul>
-                <li>Get picture [{{ url_for('camera.get_photo', num_camera='num_cam') }}]</li>
+                <li>Get picture -image- [{{ url_for('camera.get_photo_as_image', num_camera='num_cam') }}]</li>
+                <li>Get picture -bytes- [{{ url_for('camera.get_photo', num_camera='num_cam') }}]</li>
             </ul>
 
             <h5>POST List</h5>
             <ul>
                 <li>Shoot Camera [{{ url_for('camera.shoot_camera') }}]</li>
-                <li>Stop Camera [{{ url_for('camera.stop_shoot_camera') }}]</li>
+                <li>Stop Camera [{{ url_for('camera.stop_shoot_camera', num_camera='num_cam') }}]</li>
             </ul>
           </section>
         </div>
