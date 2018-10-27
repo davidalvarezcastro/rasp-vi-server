@@ -3,7 +3,7 @@
 
 from flask import g, request, Blueprint
 from ..utils.util import custom_response, render_template, custom_response_file
-from ..modules.camera import handle_shoot_camera, handle_stop_camera, handle_get_photo_as_image
+from ..modules.camera import handle_shoot_camera, handle_stop_camera, handle_get_photo_as_image, handle_get_photo
 
 import io
 
@@ -81,3 +81,22 @@ def get_photo_as_image(num_camera):
     msg = 'Something wrong has happened!' + str(inst)
     code = 500
     return custom_response({'message': msg}, code)
+
+@camera_api.route('/get_photo/<num_camera>', methods=['GET'])
+def get_photo(num_camera):
+  """Get latest picture shooted (as json object)
+
+  Keyword arguments:
+    num_cam -- camera id
+  Return: Response
+  """
+  msg = ''
+  code = 200
+
+  try:
+    msg = handle_get_photo(num_camera)
+  except Exception as inst:
+    msg = 'Something wrong has happened!' + str(inst)
+    code = 500
+
+  return custom_response({'message': msg}, code)

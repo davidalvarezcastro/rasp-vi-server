@@ -1,6 +1,6 @@
 import cv2
 
-from ..utils.util import set_interval, get_folder
+from ..utils.util import set_interval, get_folder, image_data_to_json
 from ..settings import APP_PHOTOS
 
 # Globals
@@ -75,3 +75,12 @@ def handle_get_photo_as_image(num_cam):
   """
   filename = 'test_{}.jpg'.format(num_cam)
   return (get_folder(APP_PHOTOS, filename), filename, 'image/jpg')
+
+def handle_get_photo(num_cam):
+  """Handle get latest photo
+
+  Param arguments:
+    num_cam -- camera id
+  Return: None
+  """
+  return image_data_to_json(get_folder(APP_PHOTOS, 'test_{}.jpg'.format(num_cam)))

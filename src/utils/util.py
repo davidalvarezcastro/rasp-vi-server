@@ -2,8 +2,9 @@
 from flask import json, Response, send_file, render_template as render_template_flask
 import threading
 import time as t
-import base64
 import os
+from base64 import b64encode
+from json import dumps
 
 # Utilities / Helpers
 def get_folder(path, filename):
@@ -33,6 +34,21 @@ def set_interval(func, args, delay, time):
       func(*args)
       if t.time() > start + (time/1000) : break
     break
+  
+def image_data_to_json(picture_path):
+  """Get the image date into a json object
+
+  Param arguments:
+    picture_path -- path
+  Return: JSON
+  """
+  with open(picture_path, "rb") as image_file:
+    byte_content = image_file.read()
+
+  base64_bytes = b64encode(byte_content)
+  base64_string = base64_bytes.decode('utf-8')
+  raw_data = base64_string
+  return dumps(raw_data)
 
 # View stuff: templates, responses
 def render_template(url):
