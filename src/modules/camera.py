@@ -3,7 +3,7 @@ import cv2
 from ..utils.util import set_interval
 
 # Globals
-PATH_PHOTOS = '/home/david/Desktop/test.jpg'
+PATH_PHOTOS = '/home/david/Desktop/'
 CAMERA = None
 CAMERA_STOPPED = None #Variable to stop video capturing method
 
@@ -22,7 +22,7 @@ def shoot_camera_by_id(id):
     CAMERA = cv2.VideoCapture(id) #VideoCapture Management
     # Get image and write it
     return_value,image = CAMERA.read()
-    cv2.imwrite(PATH_PHOTOS,image)
+    cv2.imwrite(PATH_PHOTOS + 'test_{}.jpg'.format(id),image)
   except Exception as e:
     CAMERA.release()
     CAMERA = None
@@ -40,7 +40,8 @@ def handle_shoot_camera(num_cam, loop = False, delay = None, time = None):
     time -- duration of the loop
   Return: None
   """
-  global CAMERA
+  global CAMERA_STOPPED
+  CAMERA_STOPPED = None
 
   # Simple shoot / multiple shoots
   if(not loop):
