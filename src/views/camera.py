@@ -19,7 +19,7 @@ def shoot_camera():
   Return: Response
   """
   msg = ''
-  code = 201
+  code = 200
   delay = None
   time = None
   num_cam = request.args.get('num_cam', default = 0, type = int)
@@ -53,11 +53,10 @@ def stop_shoot_camera():
   Return: Response
   """
   msg = ''
-  code = 201
+  code = 200
 
   try:
-    handle_stop_camera()
-    msg = 'Capturing process stopped!'
+    msg = 'Capturing process stopped!' if handle_stop_camera() else 'No camera opened!'
   except Exception as inst:
     msg = 'Something wrong has happened!' + str(inst)
     code = 500
@@ -72,4 +71,4 @@ def get_photo(num_camera):
     None
   Return: Response
   """
-  return custom_response({'description': 'get the latest stored picture'}, 201)
+  return custom_response({'description': 'get the latest stored picture'}, 200)

@@ -5,7 +5,7 @@ from ..utils.util import set_interval
 # Globals
 PATH_PHOTOS = '/home/david/Desktop/test.jpg'
 CAMERA = None
-CAMERA_STOPPED = None
+CAMERA_STOPPED = None #Variable to stop video capturing method
 
 def shoot_camera_by_id(id):
   """Take a photo for a specific camera and write it to {PATH_PHOTOS}
@@ -16,10 +16,16 @@ def shoot_camera_by_id(id):
   """
   global CAMERA, CAMERA_STOPPED
   try:
+    if(CAMERA_STOPPED):
+      raise Exception #Stop process
+    CAMERA = None
+    CAMERA = cv2.VideoCapture(id) #VideoCapture Management
     # Get image and write it
     return_value,image = CAMERA.read()
     cv2.imwrite(PATH_PHOTOS,image)
   except Exception as e:
+    CAMERA.release()
+    CAMERA = None
     # Controlled exception
     raise Exception('OK', 'Process stopped!') if CAMERA_STOPPED else Exception(e)
 
@@ -35,8 +41,6 @@ def handle_shoot_camera(num_cam, loop = False, delay = None, time = None):
   Return: None
   """
   global CAMERA
-  CAMERA = None
-  CAMERA = cv2.VideoCapture(num_cam) #VideoCapture Management
 
   # Simple shoot / multiple shoots
   if(not loop):
@@ -54,7 +58,9 @@ def handle_stop_camera():
     None
   Return: None [this event will generate an exception inside handle_shoot_camera]
   """
-  global CAMERA, CAMERA_STOPPED
-  CAMERA.release()
-  CAMERA = None #Value changed to generate the exception
-  CAMERA_STOPPED = True
+  global CAMERA_STOPPED
+  if(CAMERA and CAMERA.isOpened()):
+    CAMERA_STOPPED = True
+    return True
+  else:
+    return False
