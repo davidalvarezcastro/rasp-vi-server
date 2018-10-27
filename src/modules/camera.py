@@ -65,3 +65,13 @@ def handle_stop_camera():
     return True
   else:
     return False
+
+def handle_get_photo_as_image(num_cam):
+  """Handle get latest photo
+
+  Param arguments:
+    num_cam -- camera id
+  Return: None
+  """
+  filename = 'test_{}.jpg'.format(num_cam)
+  return (PATH_PHOTOS + filename, filename, 'image/jpg')

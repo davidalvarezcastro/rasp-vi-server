@@ -2,8 +2,11 @@
 #/src/views/camera
 
 from flask import g, request, Blueprint
-from ..utils.util import custom_response, render_template
-from ..modules.camera import handle_shoot_camera, handle_stop_camera
+
+from ..utils.util import custom_response, render_template, custom_response_file
+from ..modules.camera import handle_shoot_camera, handle_stop_camera, handle_get_photo_as_image
+
+import io
 
 camera_api = Blueprint('camera', __name__) #Camera Blueprint
 
@@ -63,12 +66,18 @@ def stop_shoot_camera():
 
   return custom_response({'message': msg}, code)
 
-@camera_api.route('/getPhoto/<num_camera>', methods=['GET'])
-def get_photo(num_camera):
+@camera_api.route('/get_photo_as_image/<num_camera>', methods=['GET'])
+def get_photo_as_image(num_camera):
   """Get latest picture shooted
 
   Keyword arguments:
-    None
+    num_cam -- camera id
   Return: Response
   """
-  return custom_response({'description': 'get the latest stored picture'}, 200)
+  path, filename, mimetype = handle_get_photo_as_image(num_camera)
+  try:
+    return custom_response_file(path, filename, mimetype)
+  except Exception as inst:
+    msg = 'Something wrong has happened!' + str(inst)
+    code = 500
+    return custom_response({'message': msg}, code)

@@ -1,7 +1,8 @@
 
-from flask import json, Response, render_template as render_template_flask
+from flask import json, Response, send_file, render_template as render_template_flask
 import threading
 import time as t
+import base64
 
 # Utilities / Helpers
 def set_interval(func, args, delay, time):
@@ -45,3 +46,14 @@ def custom_response(res, status_code):
     response=json.dumps(res),
     status=status_code
   )
+
+def custom_response_file(path, filename, mimetype):
+  """Custom Response Function (send file)
+
+  Param arguments:
+    path -- url
+    filename -- name
+    mimetype -- type
+  Return: send_file
+  """
+  return send_file(path, attachment_filename=filename, mimetype=mimetype)

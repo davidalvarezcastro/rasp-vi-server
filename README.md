@@ -55,7 +55,7 @@ If you access to the root of the project (web), you may watch a list with the se
         }
       ``` 
 2. Stop the video capturing process [*POST*] `/api/v1/camera/stop`. *No parameters*.
-3. Get the latest photo [*GET*] `/api/v1/camera/getPhoto/<id>`. As you can see, this function just read the latest picture taken (the new picture overwrites the old one).
+3. Get the latest photo [*GET*] `/api/v1/camera/get_photo_as_image/<num_camera>`. As you can see, this function just read the latest picture taken (the new picture overwrites the old one) returnign the photo itself.
 
 ## **Notes**
 Still developing the service.
