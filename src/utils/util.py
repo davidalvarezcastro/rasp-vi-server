@@ -3,8 +3,19 @@ from flask import json, Response, send_file, render_template as render_template_
 import threading
 import time as t
 import base64
+import os
 
 # Utilities / Helpers
+def get_folder(path, filename):
+  """Get project folder
+
+  Param arguments:
+    path -- path
+    filename -- filename
+  Return: string
+  """
+  return os.path.join(path, filename)
+
 def set_interval(func, args, delay, time):
   """Set interval with cancel process based on time
 

@@ -1,14 +1,14 @@
 import cv2
 
-from ..utils.util import set_interval
+from ..utils.util import set_interval, get_folder
+from ..settings import APP_PHOTOS
 
 # Globals
-PATH_PHOTOS = '/home/david/Desktop/'
 CAMERA = None
 CAMERA_STOPPED = None #Variable to stop video capturing method
 
 def shoot_camera_by_id(id):
-  """Take a photo for a specific camera and write it to {PATH_PHOTOS}
+  """Take a photo for a specific camera and write it to {APP_PHOTOS}
 
   Param arguments:
     id -- camera id
@@ -22,7 +22,7 @@ def shoot_camera_by_id(id):
     CAMERA = cv2.VideoCapture(id) #VideoCapture Management
     # Get image and write it
     return_value,image = CAMERA.read()
-    cv2.imwrite(PATH_PHOTOS + 'test_{}.jpg'.format(id),image)
+    cv2.imwrite(get_folder(APP_PHOTOS, 'test_{}.jpg'.format(id)),image)
   except Exception as e:
     CAMERA.release()
     CAMERA = None
@@ -40,17 +40,18 @@ def handle_shoot_camera(num_cam, loop = False, delay = None, time = None):
     time -- duration of the loop
   Return: None
   """
-  global CAMERA_STOPPED
+  global CAMERA, CAMERA_STOPPED
   CAMERA_STOPPED = None
 
   # Simple shoot / multiple shoots
   if(not loop):
     shoot_camera_by_id(num_cam)
-    return True
   else:
     set_interval(shoot_camera_by_id, [num_cam], delay, time)
-    return True
-  return False
+
+  CAMERA.release()
+  CAMERA = None
+  return True
 
 def handle_stop_camera():
   """Handle camera shooting (multiples photos or just one)
@@ -74,4 +75,4 @@ def handle_get_photo_as_image(num_cam):
   Return: None
   """
   filename = 'test_{}.jpg'.format(num_cam)
-  return (PATH_PHOTOS + filename, filename, 'image/jpg')
+  return (get_folder(APP_PHOTOS, filename), filename, 'image/jpg')
