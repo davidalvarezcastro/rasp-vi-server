@@ -27,9 +27,8 @@ def create_app(env_name):
     """Home API page
 
     Keyword arguments:
-    None
+      None
     """
-
     return render_template('index.html')
 
   return app
