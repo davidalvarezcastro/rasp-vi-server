@@ -3,7 +3,7 @@ rasp-vi-server is a very simple and small project for playing with Flask and Ope
 
 ## List of project folders
 ```bash
-.
+
 ├── LICENSE
 ├── manage.py
 ├── Pipfile
@@ -19,9 +19,11 @@ rasp-vi-server is a very simple and small project for playing with Flask and Ope
 │   ├── modules
 │   │   ├── camera.py
 │   │   └── __init__.py
+│   ├── photos
 │   ├── __pycache__
 │   │   ├── app.cpython-36.pyc
 │   │   └── __init__.cpython-36.pyc
+│   ├── settings.py
 │   ├── static
 │   │   └── style.css
 │   ├── templates
@@ -54,7 +56,7 @@ If you access to the root of the project (web), you may watch a list with the se
           'time': 20000
         }
       ``` 
-2. Stop the video capturing process [*POST*] `/api/v1/camera/stop`. *No parameters*.
+2. Stop the video capturing process [*POST*] `/api/v1/camera/stop/<num_camera>` for a specific camera id.
 3. Get the latest photo [*GET*] `/api/v1/camera/get_photo_as_image/<num_camera>`. As you can see, this function just read the latest picture taken (the new picture overwrites the old one) returnign the photo itself.
 
 ## **Notes**
