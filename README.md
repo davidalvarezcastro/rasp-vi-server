@@ -3,7 +3,7 @@ rasp-vi-server is a very simple and small project for playing with Flask and Ope
 
 ## List of project folders
 ```bash
-
+.
 ├── LICENSE
 ├── manage.py
 ├── Pipfile
@@ -46,7 +46,15 @@ rasp-vi-server is a very simple and small project for playing with Flask and Ope
 If you access to the root of the project (web), you may watch a list with the services provided.
 1. Shoot the camera [*POST*] `/api/v1/camera/shoot`. You have 2 options to run it: *single picture* or *multiple pictures (loop)*.
   
-    Should you want to run under *multiple pictures* mode, you may need to specify the delay between the pictures and the total time execution (there are values by default).
+    Should you want to run under *multiple pictures* mode, you may need to specify the delay between the pictures and the total time execution. There are values by default where the user specifies `loop = True`:
+    - Default values for looping:
+      ```python
+        parameters = {
+          'delay': 1000,
+          'time': -1
+        }
+      ```
+      If `time = -1`, the process runs infinitely.
     - Parameters example:
       ```python
         parameters = {
@@ -61,4 +69,4 @@ If you access to the root of the project (web), you may watch a list with the se
 4. Get the latest photo [*GET*] `/api/v1/camera/get_photo/<num_camera>` -like the previous api- but returning the image as a based64 string.
 
 ## **Notes**
-Still developing the service.
+Still developing features.

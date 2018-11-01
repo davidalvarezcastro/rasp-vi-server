@@ -32,7 +32,7 @@ def set_interval(func, args, delay, time):
     e = threading.Event()
     while not e.wait(delay/1000):
       func(*args)
-      if t.time() > start + (time/1000) : break
+      if time != -1 and (t.time() > (start + (time/1000))) : break
     break
   
 def image_data_to_json(picture_path):

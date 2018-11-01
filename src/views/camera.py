@@ -29,7 +29,7 @@ def shoot_camera():
 
   if (loop):
     delay = request.args.get('delay', default = 3000, type = int)
-    time = request.args.get('time', default = 10000, type = int)
+    time = request.args.get('time', default = -1, type = int)
 
   try:
     msg = 'Photo(s) stored!' if handle_shoot_camera(num_cam, loop, delay, time) else 'Something wrong has happened!'
