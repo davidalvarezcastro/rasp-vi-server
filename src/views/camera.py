@@ -2,6 +2,7 @@
 #/src/views/camera
 
 from flask import g, request, Blueprint
+from flask_restplus import inputs
 from ..utils.util import custom_response, render_template, custom_response_file
 from ..modules.camera import handle_shoot_camera, handle_stop_camera, handle_get_photo_as_image, handle_get_photo
 
@@ -25,7 +26,7 @@ def shoot_camera():
   delay = None
   time = None
   num_cam = request.args.get('num_cam', default = 0, type = int)
-  loop = request.args.get('loop', default = False, type = bool)
+  loop = request.args.get('loop', default = False, type = inputs.boolean)
 
   if (loop):
     delay = request.args.get('delay', default = 3000, type = int)
