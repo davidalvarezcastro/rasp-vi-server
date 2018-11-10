@@ -1,0 +1,20 @@
+Stop Shoot camera
+---
+tags:
+  - Camera
+parameters:
+  - in: path
+    name: num_cam
+    description: Camera Id
+    required: true
+    type: integer
+responses:
+  200:
+    description: Capturing process is stopped.
+    schema:
+      properties:
+        message:
+          type: string
+          description: State of the stop shoot
+  500:
+    description: Something wrong has happened

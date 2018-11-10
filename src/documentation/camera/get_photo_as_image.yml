@@ -1,0 +1,15 @@
+Get photo as JPEG Image
+---
+tags:
+  - Camera
+parameters:
+  - in: path
+    name: num_cam
+    description: Camera Id
+    required: true
+    type: integer
+responses:
+  200:
+    description: Image as mimetype image/jpg
+  500:
+    description: Something wrong has happened

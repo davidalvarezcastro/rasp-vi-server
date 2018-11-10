@@ -1,0 +1,46 @@
+Shoot camera
+---
+tags:
+  - Camera
+parameters:
+  - in: body
+    name: Shoot
+    required: true
+    schema:
+      $ref: '#/definitions/Shoot'
+responses:
+  200:
+    description: The photo has been stored
+    schema:
+      properties:
+        message:
+          type: string
+          description: State of the shoot
+  500:
+    description: Something wrong has happened
+
+definitions:
+  Shoot:
+    description: Shoot object
+    properties:
+      num-cam:
+        type: integer
+        description: Camera id 
+        example: 0
+      loop:
+        type: boolean
+        description: Allow the camera to take continually photos
+        default: false
+        example: false
+      delay:
+        type: integer
+        description: Delay between shootings in ms
+        default: 3000
+        example: 3000
+      time:
+        type: integer
+        description: Duration of the loop
+        default: -1
+        example: -1
+    required:
+      - num-cam

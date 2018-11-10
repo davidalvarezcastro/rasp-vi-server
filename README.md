@@ -5,42 +5,45 @@ rasp-vi-server is a very simple and small project for playing with Flask and Ope
 ```bash
 .
 ├── LICENSE
-├── manage.py
 ├── Pipfile
 ├── Pipfile.lock
 ├── README.md
+├── manage.py
 ├── run.py
-├── src
-│   ├── app.py
-│   ├── config.py
-│   ├── __init__.py
-│   ├── models
-│   │   └── __init__.py
-│   ├── modules
-│   │   ├── camera.py
-│   │   └── __init__.py
-│   ├── photos
-│   ├── __pycache__
-│   │   ├── app.cpython-36.pyc
-│   │   └── __init__.cpython-36.pyc
-│   ├── settings.py
-│   ├── static
-│   │   └── style.css
-│   ├── templates
-│   │   └── index.html
-│   ├── utils
-│   │   ├── __init__.py
-│   │   └── util.py
-│   └── views
-│       ├── camera.py
-│       └── __init__.py
-└── tests
+└── src
+    ├── __init__.py
+    ├── app.py
+    ├── config.py
+    ├── documentation
+    │   └── camera
+    │       ├── get_photo.yml
+    │       ├── get_photo_as_image.yml
+    │       ├── shoot_camera.yml
+    │       └── stop_shoot_camera.yml
+    ├── models
+    │   └── __init__.py
+    ├── modules
+    │   ├── __init__.py
+    │   └── camera.py
+    ├── photos
+    ├── settings.py
+    ├── static
+    │   └── style.css
+    ├── templates
+    │   └── index.html
+    ├── utils
+    │   ├── __init__.py
+    │   └── util.py
+    └── views
+        ├── __init__.py
+        └── camera.py
 ```
 
 
 ## Steps to setup it [DEVELOPMENT]
 1. `export FLASK_ENV=development`
 2. Execute `python run.py` in a development environment.
+3. To see the API documentation enter the next url: `http://localhost:5000/apidocs/`
 
 ## API List
 If you access to the root of the project (web), you may watch a list with the services provided.
@@ -58,15 +61,15 @@ If you access to the root of the project (web), you may watch a list with the se
     - Parameters example:
       ```python
         parameters = {
-          'camera': 1,
+          'num_cam': 1,
           'loop': True,
           'delay': 5000,
           'time': 20000
         }
       ``` 
-2. Stop the video capturing process [*POST*] `/api/v1/camera/stop/<num_camera>` for a specific camera id.
-3. Get the latest photo [*GET*] `/api/v1/camera/get_photo_as_image/<num_camera>`. As you can see, this function just read the latest picture taken (the new picture overwrites the old one) returnign the photo itself.
-4. Get the latest photo [*GET*] `/api/v1/camera/get_photo/<num_camera>` -like the previous api- but returning the image as a based64 string.
+2. Stop the video capturing process [*POST*] `/api/v1/camera/stop/<num_cam>` for a specific camera id.
+3. Get the latest photo [*GET*] `/api/v1/camera/get_photo_as_image/<num_cam>`. As you can see, this function just read the latest picture taken (the new picture overwrites the old one) returnign the photo itself.
+4. Get the latest photo [*GET*] `/api/v1/camera/get_photo/<num_cam>` -like the previous api- but returning the image as a based64 string.
 
 ## **Notes**
 Still developing features.

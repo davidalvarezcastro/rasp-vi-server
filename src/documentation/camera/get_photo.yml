@@ -1,0 +1,19 @@
+Get photo as base64
+---
+tags:
+  - Camera
+parameters:
+  - in: path
+    name: num_cam
+    description: Camera Id
+    required: true
+    type: integer
+responses:
+  200:
+    description: Image as base64
+    schema:
+      properties:
+        message:
+          type: string
+  500:
+    description: Something wrong has happened

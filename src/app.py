@@ -2,7 +2,8 @@ from flask import Flask, g #flask
 from .config import app_config #app config
 from .utils.util import render_template
 from .views.camera import camera_api as camera_blueprint #view
-from flask_bootstrap import Bootstrap #bootstrap
+from flasgger import Swagger
+from flasgger.utils import swag_from
 
 # Creating app
 def create_app(env_name):
@@ -17,9 +18,11 @@ def create_app(env_name):
   app.config.from_object(app_config[env_name])
   app.register_blueprint(camera_blueprint, url_prefix='/api/v1/camera') #registering camera api
 
-  # boostrap init
-  Bootstrap(app)
-
+  app.config['SWAGGER'] = {
+    'title': 'Raspi VI API'
+  }
+  # Swagger init
+  Swagger(app)
 
   @app.after_request
   def after_request(response):
@@ -27,16 +30,5 @@ def create_app(env_name):
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
-    
-  # / url [home page]
-  @app.route('/index')
-  @app.route('/', methods=['GET'])
-  def index():
-    """Home API page
-
-    Keyword arguments:
-      None
-    """
-    return render_template('index.html')
 
   return app
