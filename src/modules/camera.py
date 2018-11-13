@@ -19,6 +19,7 @@ def shoot_camera_by_id(id):
   try:
     if(CAMERA_STOPPED and (id == CAMERA_TO_STOP)):
       CAMERA_TO_STOP = None
+      CAMERA.release()
       raise Exception #Stop process
     CAMERA = None
     CAMERA = cv2.VideoCapture(id) #VideoCapture Management
